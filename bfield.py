@@ -2,6 +2,8 @@
 """
 Created on Mon Dec 15 15:59:20 2014
 
+Updated with better comments on Thu Oct 15 15:12:33 2015
+
 @author: mrea1g12
 """
 ###############################################################################
