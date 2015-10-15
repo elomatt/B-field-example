@@ -6,6 +6,7 @@ Code should be self-explanatory, and is written to accompany Stand-Alone experim
 Any questions should be directed to the author:
 
 Matt Aldous:
+
     e : matt.aldous@soton.ac.uk
     
     t : 23931
