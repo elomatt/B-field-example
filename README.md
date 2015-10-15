@@ -7,8 +7,12 @@ Any questions should be directed to the author:
 
 Matt Aldous:
     e : matt.aldous@soton.ac.uk
+    
     t : 23931
+    
     a : Building 46, room 1027
+    
+    
     
 Basic usage instructions:
 
