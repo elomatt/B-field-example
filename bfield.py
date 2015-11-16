@@ -23,7 +23,7 @@ matplotlib.rc('font', **font)
 #DEFINITIONS
 
 def solenoid(N, I, l, R, z, D=0):
-    
+
     # Takes parameters:
     #    N = number of solenoid turns
     #    I = current in coil
@@ -33,17 +33,17 @@ def solenoid(N, I, l, R, z, D=0):
     #    D = coil separation along axis
 
     # First line calculates a constant premultiplier based on
-    # the Biot-Savart law.    
+    # the Biot-Savart law.
     k = 4 * np.pi * 1e-7 *N*I/(4*l)
-    
+
     # Next two lines calculate the positive and negative components
     # of z displacement term
     z_plus = (z - D + l)/np.sqrt((z - D + l)**2 + R**2)
-    z_minus = (z - D - l)/np.sqrt((z - D - l)**2 + R**2)      
-    
+    z_minus = (z - D - l)/np.sqrt((z - D - l)**2 + R**2)
+
     # Finally, put it all together
     return k*(z_plus - z_minus)
-    
+
 # Declare initial positions of coils relative to midpoint
 position_1 = -0.1
 position_2 = 0.1
@@ -90,7 +90,7 @@ conversion = {"T":1, "mT":1e3, "G":1e4}
 if config == "helmholtz":
     for d in separations:
         b_list_theory.append(solenoid(*id_coils, D=d) + solenoid(*id_coils, D=-d))
-        
+
 elif config == "anti-helmholtz":
     for d in separations:
         b_list_theory.append(solenoid(*id_coils, D=d) - solenoid(*id_coils, D=-d))
@@ -110,10 +110,11 @@ for index, item in enumerate(b_list_theory):
     ax.plot(z_theoretical, item*factor, label="%.2fm separation" % separations[index])
     print "|{0:.2f}m separation\t|mean {1:.2f}{2}\t|STD {3:.2f}{2}|".format(
     separations[index], np.mean(item)*factor, units, np.std(item)*factor)
-    
+
 # Make the plots pretty
 ax.set_xlabel("$z$ (m)")
 ax.set_ylabel("$B_z$ (%s)" % units)
 plt.legend(loc="best")
 #plt.axis([position_1, position_2, 0, 0.01])
 plt.show()
+plt.savefig("b-field.png")
