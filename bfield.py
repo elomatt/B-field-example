@@ -38,21 +38,12 @@ def solenoid(N, I, l, R, z, D=0):
 
     # Next two lines calculate the positive and negative components
     # of z displacement term
-<<<<<<< HEAD
     z_plus = (z - D/2 + l)/np.sqrt((z - D/2 + l)**2 + R**2)
     z_minus = (z - D/2 - l)/np.sqrt((z - D/2 - l)**2 + R**2)      
     
     # Finally, put it all together
     return k*(-z_plus + z_minus)
     
-=======
-    z_plus = (z - D + l)/np.sqrt((z - D + l)**2 + R**2)
-    z_minus = (z - D - l)/np.sqrt((z - D - l)**2 + R**2)
-
-    # Finally, put it all together
-    return k*(z_plus - z_minus)
-
->>>>>>> 1ac7e1e1b7c3ea932c3c0dd0be47752d71a5225c
 # Declare initial positions of coils relative to midpoint
 position_1 = -0.0125
 position_2 = 0.0125
@@ -98,19 +89,10 @@ conversion = {"T":1, "mT":1e3, "G":1e4, "mG":1e7}
 # For a given configuration, set the coil orientation and calculate B at every
 # given z position
 if config == "helmholtz":
-<<<<<<< HEAD
     b_theory = solenoid(*id_coils, D=d) + solenoid(*id_coils, D=-d)
         
 elif config == "antihelmholtz":
         b_theory = solenoid(*id_coils, D=d) - solenoid(*id_coils, D=-d)
-=======
-    for d in separations:
-        b_list_theory.append(solenoid(*id_coils, D=d) + solenoid(*id_coils, D=-d))
-
-elif config == "anti-helmholtz":
-    for d in separations:
-        b_list_theory.append(solenoid(*id_coils, D=d) - solenoid(*id_coils, D=-d))
->>>>>>> 1ac7e1e1b7c3ea932c3c0dd0be47752d71a5225c
 
 # Apply conversion factor with failsafe to make sure Tesla doesn't convert
 if units in conversion:
@@ -123,7 +105,6 @@ b_gradient= np.diff(b_theory)/np.diff(z_theoretical)
 ###############################################################################
 #DATA OUTPUT
 
-<<<<<<< HEAD
 # Create a plot
 field, = ax_B.plot(z_theoretical, b_theory*factor)
 grad, = ax_g.plot(z_theoretical[1:], b_gradient*factor/100, "--k")
@@ -137,18 +118,6 @@ fig.legend([field, grad],#, expt],
            ["B field %.2em separation" % d,
            "Gradient %.2em separation" % d],#, "Experimental B field data"],
            loc = "upper center")
-=======
-# Create a plot for every separation requested
-for index, item in enumerate(b_list_theory):
-    ax.plot(z_theoretical, item*factor, label="%.2fm separation" % separations[index])
-    print "|{0:.2f}m separation\t|mean {1:.2f}{2}\t|STD {3:.2f}{2}|".format(
-    separations[index], np.mean(item)*factor, units, np.std(item)*factor)
-
-# Make the plots pretty
-ax.set_xlabel("$z$ (m)")
-ax.set_ylabel("$B_z$ (%s)" % units)
-plt.legend(loc="best")
-#plt.axis([position_1, position_2, 0, 0.01])
->>>>>>> 1ac7e1e1b7c3ea932c3c0dd0be47752d71a5225c
+           
 plt.show()
 plt.savefig("b-field.png")
