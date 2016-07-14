@@ -106,8 +106,8 @@ b_gradient= np.diff(b_theory)/np.diff(z_theoretical)
 #DATA OUTPUT
 
 # Create a plot
-field, = ax_B.plot(z_theoretical, b_theory*factor)
-grad, = ax_g.plot(z_theoretical[1:], b_gradient*factor/100, "--k")
+field, = ax_B.plot(z_theoretical, b_theory*factor, 'r', lw=5)
+grad, = ax_g.plot(z_theoretical[1:], b_gradient*factor/100, 'gray', lw=5)
 #expt, = ax_B.plot(z_experimental, b_experimental, ".g")
     
 # Make the plot pretty
