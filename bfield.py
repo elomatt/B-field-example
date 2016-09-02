@@ -45,8 +45,8 @@ def solenoid(N, I, l, R, z, D=0):
     return k*(-z_plus + z_minus)
     
 # Declare initial positions of coils relative to midpoint
-position_1 = -0.0125
-position_2 = 0.0125
+position_1 = -4e-3
+position_2 = 4e-3
 d = position_2 - position_1
 
 # Set granularity of simulation (number of probe points on z axis)
@@ -64,15 +64,11 @@ ax_g = ax_B.twinx()
 # Figure out exactly where the sample points should be
 z_theoretical = np.linspace(2*position_1, 2*position_2, n_steps + 1)
 
-z_experimental = (np.array([0,0.06,0.16,0.56,1.06,1.56,2.06,3.06,4.06,5.06,6.06,7.06,8.06])- 4.25)/1000.0
-b_experimental = np.array([293,288,289,281,272,257,246,179,104,21,-51,-87,-94])/1000.0
 # This list defines the coil setup and parameters:
 #    [Number of turns, current through each, depth, radius, z probe positions]
-fyl_coils = [397, 1.5, 0.04, 0.1515, z_theoretical]
-pcb_coils = [5, 0.4, 0.001, 0.006, z_theoretical]
-mini_coils = [15, 0.505, 0.005, 0.0249, z_theoretical]
-id_coils = mini_coils
 
+pcb_coils = [20, 0.1, 0.2e-3, 12e-3, z_theoretical]
+id_coils = pcb_coils
 
 # Set this to the units you want:
 #    "G" = Gauss
@@ -116,7 +112,8 @@ ax_B.set_ylabel("$B_z$ (%s)" % units)
 ax_g.set_ylabel("$\partial_zB$ (%s/cm)" % units)
 fig.legend([field, grad],#, expt],
            ["B field %.2em separation" % d,
-           "Gradient %.2em separation" % d],#, "Experimental B field data"],
+           "Gradient %.2em separation" % d,
+           "Experimental B field data"],
            loc = "upper center")
            
 plt.show()
